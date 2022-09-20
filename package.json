@@ -11,6 +11,7 @@
     "src",
     "lib",
     "android",
+    "Frameworks",
     "ios",
     "cpp",
     "react-native-securionpay-sdk.podspec",
