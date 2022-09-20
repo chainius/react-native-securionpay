@@ -43,4 +43,6 @@ google-services.json
 
 Pods
 node_modules
+ipworks3ds_sdk_deploy.aar
+ipworks3ds_sdk.xcframework
 .DS_Store
