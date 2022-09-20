@@ -27,7 +27,7 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "release": "release-it",
     "example": "yarn --cwd example",
-    "postinstall": "node postinstall",
+    "prepare": "node postinstall",
     "bootstrap": "yarn example && yarn && yarn example pods"
   },
   "keywords": [
