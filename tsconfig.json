@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
+    "outDir" : "lib",
     "baseUrl": "./",
     "paths": {
       "react-native-securionpay-sdk": ["./src/index"]
     },
+    "declaration": true,
+    "declarationMap": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
