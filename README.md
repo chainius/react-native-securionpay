@@ -7,28 +7,11 @@ Implementation of the securionpay sdk for react-native and expo
 
 
 ### IOS
-Download both ipworks3ds_sdk_debug.xcframework and ipworks3ds_sdk_release.xcframework 3D-Secure libraries and copy them to a directory in your project. 
+Download both ipworks3ds_sdk_debug.xcframework and ipworks3ds_sdk_release.xcframework 3D-Secure libraries and copy them to a directory of your project. 
 
-Then set the env variable 
-```bash
-export IPWORKS3DS_FRAMEWORK_IOS=/path/to/the/file.xcframework
-```
-if you want to build an app only for IOS please add this envirnoment variable
-```bash
-export IPWORKS3DS_ONLY_IOS=1
-```
 ### Android
-Download both ipworks3ds_sdk_deploy.aar and ipworks3ds_sdk.aar 3D-Secure libraries and copy them to a directory in your project. 
+Download both ipworks3ds_sdk_deploy.aar and ipworks3ds_sdk.aar 3D-Secure libraries and copy them to a directory of your project. 
 
-Then set the env variable 
-```bash
-export IPWORKS3DS_ONLY_ANDROID=1
-````
-
-if you want to build an app only for android please add this envirnoment variable
-```bash
-export IPWORKS3DS_FRAMEWORK_ANDROID_ONLY=true
-```
 #
 
 
@@ -37,6 +20,16 @@ export IPWORKS3DS_FRAMEWORK_ANDROID_ONLY=true
 ```sh
 npm install react-native-securionpay-sdk
 ```
+## Configuration
+
+After installing the package you will need to run the `securionpay-link` command to link the native ipworks3DS  libraries to your project for ANDROID and IOS.
+```bash
+npx securionpay-link --ios <path>/ipworks3ds_sdk_release.xcframework --android  <path>/ipworks3DS/ipworks3ds_sdk_deploy.aar
+```
+
+If you are using expo , you will need to run the `securionpay-link` also on the eas build for the dev-client and the release build. This can be done through the eas lifecycle hooks or with pre npm scripts. 
+
+```bash
 
 ## Usage
 

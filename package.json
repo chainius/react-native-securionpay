@@ -6,6 +6,9 @@
   "types": "lib/src/index.d.ts",
   "react-native": "src/index",
   "source": "src/index",
+  "bin": {
+    "securionpay-link": "./link-dependecy.js"
+  },
   "files": [
     "src",
     "lib",
@@ -13,7 +16,7 @@
     "Frameworks",
     "ios",
     "cpp",
-    "postinstall.js",
+    "link-dependecy.js",
     "react-native-securionpay-sdk.podspec",
     "!lib/typescript/example",
     "!android/build",
@@ -28,7 +31,6 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "release": "release-it",
     "example": "yarn --cwd example",
-    "prepare": "node postinstall",
     "bootstrap": "yarn example && yarn && yarn example pods"
   },
   "keywords": [
@@ -148,5 +150,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "cli": "^1.0.1"
   }
 }
