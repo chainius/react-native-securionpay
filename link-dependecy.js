@@ -41,7 +41,7 @@ function WriteFileFolder(key, from, output, neededext, isFolder) {
   fs.cpSync(from, output, { recursive: isFolder });
   console.log(
     colors.green,
-    'Succefssfully linked ' + key + ' dependency',
+    'Successfully linked ' + key + ' dependency',
     colors.reset
   );
 }
