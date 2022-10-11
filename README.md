@@ -29,8 +29,6 @@ npx securionpay-link --ios <path>/ipworks3ds_sdk_release.xcframework --android  
 
 If you are using expo , you will need to run the `securionpay-link` also on the eas build for the dev-client and the release build. This can be done through the eas lifecycle hooks or with pre npm scripts. 
 
-```bash
-
 ## Usage
 
 ```js
