@@ -1,6 +1,6 @@
 {
   "name": "react-native-securionpay-sdk",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "implementation of the securionpay sdk for react-native and expo",
   "main": "lib/src/index",
   "types": "lib/src/index.d.ts",
@@ -18,6 +18,8 @@
     "cpp",
     "link-dependecy.js",
     "react-native-securionpay-sdk.podspec",
+    "!android/libs/ipworks3ds_sdk_deploy.aar",
+    "!Frameworks/ipworks3ds_sdk.xcframework",
     "!lib/typescript/example",
     "!android/build",
     "!ios/build",
