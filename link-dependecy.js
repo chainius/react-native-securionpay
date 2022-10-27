@@ -13,6 +13,23 @@ cli.parse({
   android: ['a', 'path to aar file', 'file'],
 });
 
+function copyRecursiveSync(src, dest) {
+  var exists = fs.existsSync(src);
+  var stats = exists && fs.statSync(src);
+  var isDirectory = exists && stats.isDirectory();
+  if (isDirectory) {
+    fs.mkdirSync(dest);
+    fs.readdirSync(src).forEach(function (childItemName) {
+      copyRecursiveSync(
+        path.join(src, childItemName),
+        path.join(dest, childItemName)
+      );
+    });
+  } else {
+    fs.copyFileSync(src, dest);
+  }
+}
+
 function WriteFileFolder(key, from, output, neededext, isFolder) {
   if (!from.endsWith(neededext)) {
     console.error(
@@ -38,7 +55,10 @@ function WriteFileFolder(key, from, output, neededext, isFolder) {
     fs.rmSync(output, { recursive: isFolder });
   }
 
-  fs.cpSync(from, output, { recursive: isFolder });
+  var copyFile =
+    typeof fs.cpSync === 'function' ? fs.cpSync : copyRecursiveSync;
+
+  copyFile(from, output, { recursive: isFolder });
   console.log(
     colors.green,
     'Successfully linked ' + key + ' dependency',
