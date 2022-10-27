@@ -1,6 +1,6 @@
 {
   "name": "react-native-securionpay-sdk",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "implementation of the securionpay sdk for react-native and expo",
   "main": "lib/src/index",
   "types": "lib/src/index.d.ts",
