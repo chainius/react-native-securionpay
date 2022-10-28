@@ -40,6 +40,40 @@ class SecurionpaySdk: NSObject {
               }
     }
     
+    func CreateToken(token :String)  -> Token? {
+        let decoder = JSONDecoder()
+        let jsonData = token.data(using: .utf8)!
+        do {
+            let tok = try decoder.decode(Token.self, from: jsonData)
+            return tok
+        } catch  {
+            return nil
+        }
+
+    }
+    
+    @objc(LaunchPaymentWithToken:amount:currency:resolve:reject:)
+    func LaunchPaymentWithToken(tokenString :String,amount: Int , currency :String, resolve:@escaping RCTPromiseResolveBlock,reject: @escaping RCTPromiseRejectBlock)  {
+       
+        guard let  viewController = RCTPresentedViewController() else {
+                return  reject("NATIVE ERROR","Failed to access a view controller", nil)
+        }
+       
+        guard let token = CreateToken(token:tokenString) else {
+          return reject("NATIVE ERROR", "Failed getting token", nil)
+      }
+   
+      SecurionPay.shared.authenticate(token: token, amount: amount, currency: currency, viewControllerPresenting3DS: viewController) { [weak self] authenticatedToken, error in
+          if error == nil {
+              let result =  self?.GetResult(data:authenticatedToken)
+              return resolve(result)
+          } else if let error = error {
+               return reject("SECURIONPAY", error.localizedMessage(), nil)
+          }
+      }
+             
+    }
+    
     func GetResult(data: Token?) -> NSMutableDictionary {
          let resultData = NSMutableDictionary()
 

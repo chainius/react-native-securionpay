@@ -1,4 +1,27 @@
 import { NativeModules, Platform } from 'react-native';
+interface ThreeDSecureInfo {
+  amount: Number;
+  currency: String;
+  enrolled: Boolean;
+  version: String;
+  liabilityShift: Number;
+}
+interface Token {
+  id: String;
+  created?: Number;
+  objectType?: String;
+  first6?: String;
+  last4?: String;
+  fingerprint?: String;
+  expirationMonth?: String;
+  expirationYear?: String;
+  cardholder?: String;
+  brand: String;
+  type?: String;
+  country?: String;
+  used: Boolean;
+  threeDSecureInfo?: ThreeDSecureInfo;
+}
 
 const LINKING_ERROR =
   `The package 'react-native-securionpay-sdk' doesn't seem to be linked. Make sure: \n\n` +
@@ -20,10 +43,24 @@ const Securionpay = NativeModules.Securionpay
       },
     };
 
+
+  console.log(Object.keys(Securionpay))
+
 export function Init(publickey: String, signature?: String): Promise<any> {
   return Securionpay.Init(publickey, signature);
 }
 
+export function LaunchPaymentWithToken(
+  token: Token,
+  amount: Number,
+  currency: String
+) {
+  return Securionpay.LaunchPaymentWithToken(
+    JSON.stringify(token),
+    amount,
+    currency
+  );
+}
 export function LaunchPayment(
   cardnumber: String,
   expirymonth: String,

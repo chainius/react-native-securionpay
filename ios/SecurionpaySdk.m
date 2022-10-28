@@ -16,6 +16,15 @@ RCT_EXTERN_METHOD(
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(
+                  LaunchPaymentWithToken:(NSString)cardnumber
+                  amount:(int)amount
+                  currency:(NSString)currency
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+
+
 
 
 + (BOOL)requiresMainQueueSetup
