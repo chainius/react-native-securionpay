@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/chainius/react-native-securionpay-sdk.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
-
+  s.pod_target_xcconfig = { 'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES' }
   s.vendored_framework = 'Frameworks/ipworks3ds_sdk.xcframework'
   
   s.dependency "React-Core"

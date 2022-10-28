@@ -1,6 +1,6 @@
 {
   "name": "react-native-securionpay-sdk",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "implementation of the securionpay sdk for react-native and expo",
   "main": "lib/src/index",
   "types": "lib/src/index.d.ts",
@@ -48,7 +48,7 @@
   },
   "homepage": "https://github.com/chainius/react-native-securionpay-sdk#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry":"https://npm.pkg.github.com"
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
