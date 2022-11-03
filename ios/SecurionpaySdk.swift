@@ -12,32 +12,19 @@ class SecurionpaySdk: NSObject {
     
     @objc(LaunchPayment:expirymonth:expiryyear:cvv:amount:currency:resolve:reject:)
     func LaunchPayment(cardnumber : String, expirymonth : String, expiryyear : String, cvv : String, amount: Int , currency :String, resolve:@escaping RCTPromiseResolveBlock,reject: @escaping RCTPromiseRejectBlock)  {
-       
-        
-        guard let  viewController = RCTPresentedViewController() else {
-                return  reject("NATIVE ERROR","Failed to access a view controller", nil)
-        }
-        
          let tokenRequest = TokenRequest(number: cardnumber, expirationMonth: expirymonth, expirationYear: expiryyear, cvc: cvv)
               SecurionPay.shared.createToken(with: tokenRequest) { [weak self] token, error in
 
-                  if let error = error {
-                      return reject("SECURIONPAY", error.localizedMessage(), nil)
-                  }
-
-                  guard let token = token else {
-                      return reject("NATIVE ERROR", "Failed getting token", nil)
-                  }
-               
-                  SecurionPay.shared.authenticate(token: token, amount: amount, currency: currency, viewControllerPresenting3DS: viewController) { [weak self] authenticatedToken, error in
-                      if error == nil {
-                          let result =  self?.GetResult(data:authenticatedToken)
-                          return resolve(result)
-                      } else if let error = error {
-                           return reject("SECURIONPAY", error.localizedMessage(), nil)
-                      }
-                  }
+              if let error = error {
+                  return reject("TOKEN_CREATION", error.localizedMessage(), nil)
               }
+
+              guard let token = token else {
+                  return reject("NATIVE_ERROR", "Failed getting token", nil)
+              }
+           
+              self?.RunAuthentication(token: token,amount: amount, currency: currency, resolve: resolve, reject: reject)
+          }
     }
     
     func CreateToken(token :String)  -> Token? {
@@ -52,26 +39,30 @@ class SecurionpaySdk: NSObject {
 
     }
     
+    func RunAuthentication(token :Token, amount: Int , currency :String, resolve:@escaping RCTPromiseResolveBlock,reject: @escaping RCTPromiseRejectBlock)
+    {
+        guard let  viewController = RCTPresentedViewController() else {
+                return  reject("NATIVE_ERROR","Failed to access a view controller", nil)
+        }
+        
+        
+        SecurionPay.shared.authenticate(token: token, amount: amount, currency: currency, viewControllerPresenting3DS: viewController) { [weak self] authenticatedToken, error in
+            if error == nil {
+                let result =  self?.GetResult(data:authenticatedToken)
+                return resolve(result)
+            } else if let error = error {
+                 return reject("AUTH_FAILED", error.localizedMessage(), nil)
+            }
+        }
+    }
     @objc(LaunchPaymentWithToken:amount:currency:resolve:reject:)
     func LaunchPaymentWithToken(tokenString :String,amount: Int , currency :String, resolve:@escaping RCTPromiseResolveBlock,reject: @escaping RCTPromiseRejectBlock)  {
        
-        guard let  viewController = RCTPresentedViewController() else {
-                return  reject("NATIVE ERROR","Failed to access a view controller", nil)
-        }
-       
         guard let token = CreateToken(token:tokenString) else {
-          return reject("NATIVE ERROR", "Failed getting token", nil)
-      }
+          return reject("TOKEN_PARSING", "failed to parse token", nil)
+        }
    
-      SecurionPay.shared.authenticate(token: token, amount: amount, currency: currency, viewControllerPresenting3DS: viewController) { [weak self] authenticatedToken, error in
-          if error == nil {
-              let result =  self?.GetResult(data:authenticatedToken)
-              return resolve(result)
-          } else if let error = error {
-               return reject("SECURIONPAY", error.localizedMessage(), nil)
-          }
-      }
-             
+        RunAuthentication(token: token,amount: amount, currency: currency, resolve: resolve, reject: reject)
     }
     
     func GetResult(data: Token?) -> NSMutableDictionary {

@@ -54,6 +54,39 @@ Init( "<your public key>", "<bundleIdentifier for ios || signature for android>"
 
 ```
 
+If you manage the cards or the token creation throught your own api you can pass the token object
+
+```js
+import {  Init, LaunchPayment } from 'react-native-securionpay-sdk';
+
+// ...
+
+  Init( "<your public key>", "<bundleIdentifier for ios || signature for android>")
+
+   var data = {
+      brand: "visa",
+      country: "CH",
+      created: 1666708744,
+      expMonth: "12",
+      expYear: "2029",
+      fingerprint: "<fingerprint>",
+      id: "<id_token_or_card>",
+      number: "401200######0016",
+      used : true
+    }
+    // test data from https://securionpay.com/docs/testing
+    LaunchPaymentWithToken(
+      data,
+      5000, // amount multuplied by 100
+      'EUR' // currency
+    ).then((x) => {
+       console.log(x);
+    }).catch((x) => {
+       console.log(x);
+    });
+
+```
+
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.

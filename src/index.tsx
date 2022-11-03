@@ -27,6 +27,7 @@ const LINKING_ERROR =
   `The package 'react-native-securionpay-sdk' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
   '- You rebuilt the app after installing the package\n' +
+  '- You have run the "npx securionpay-link" command\n' +
   '- You are not using expo managed workflow or build again the client with eas\n';
 
 if (!NativeModules.Securionpay) {
@@ -42,9 +43,6 @@ const Securionpay = NativeModules.Securionpay
         return Promise.reject("'react-native-securionpay-sdk' is not linked");
       },
     };
-
-
-  console.log(Object.keys(Securionpay))
 
 export function Init(publickey: String, signature?: String): Promise<any> {
   return Securionpay.Init(publickey, signature);
