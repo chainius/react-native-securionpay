@@ -48,7 +48,7 @@
   },
   "homepage": "https://github.com/chainius/react-native-securionpay-sdk#readme",
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
