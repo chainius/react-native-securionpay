@@ -1,4 +1,4 @@
-package com.reactnativesecurionpay
+package com.reactnativesecurionpaysdk
 
 import com.securionpay.SecurionPay
 import com.facebook.react.bridge.*
@@ -7,7 +7,7 @@ import com.securionpay.data.api.Status
 import com.securionpay.data.model.token.Token
 import com.securionpay.data.model.token.TokenRequest
 
-class SecurionpayModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
+class SecurionpaySdkModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
     override fun getName(): String {
         return "Securionpay"
