@@ -42,6 +42,9 @@ const Securionpay = NativeModules.Securionpay
       LaunchPayment: () => {
         return Promise.reject("'react-native-securionpay-sdk' is not linked");
       },
+      LaunchPaymentWithToken: () => {
+        return Promise.reject("'react-native-securionpay-sdk' is not linked");
+      }
     };
 
 export function Init(publickey: String, signature?: String): Promise<any> {
